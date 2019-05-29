@@ -187,7 +187,7 @@ nil              ;; Ausencia de valor, muy importante
 (def foo)
 (def 1-2-3)
 (def a1)
-(def *foo*)
+(def foo*)
 (def _!-???)
 
 ;; `/` y `.` son especiales se usan en espacios de nombres
