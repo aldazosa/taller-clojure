@@ -363,3 +363,51 @@ tres
 
 ;; En otras palabras evaluando en el REPL tenemos un programa que
 ;; mediante su evaluador se modifica a sí mismo
+
+
+;;;;;;;;;;;;;;;
+;; Pipelines ;;
+;;;;;;;;;;;;;;;
+
+;; Muchos programas se expresan de forma natural como una secuencia de
+;; pasos. Dada la notación prefija en los lisp y la forma en que se
+;; anidan los parámetros en ocasiones puede resultar difícil leer el
+;; código dado que se debe ir de dentro hacia afuera:
+
+'(defn foo [persona]
+   (-> persona
+       (selecciona-campos-relevantes :estudiante)
+       (actualiza-fecha-registro :hoy)
+       (transforma-nombre)))
+
+
+'(defn foo [persona]
+   (transforma-nombre
+     (actualiza-fecha-registro
+       (selecciona-campos-relevantes persona :estudiante) :hoy)))
+
+
+;; `->` se conoce como "thread-first macro" y transforma una secuencia
+;; de listas (o símbolos) insertando el resultado de una expresión
+;; como el primer parámetro de la siguiente.
+
+(macroexpand-1
+  '(-> persona
+       (selecciona-campos-relevantes :estudiante)
+       (actualiza-fecha-registro :hoy)
+       (transforma-nombre)))
+
+;; => (transforma-nombre
+;;     (actualiza-fecha-registro
+;;      (selecciona-campos-relevantes persona :estudiante)
+;;      :hoy))
+
+;; Si alguno de los pasos no recibe más que un parámetro, los
+;; paréntesis son opcionales:
+
+
+'(defn foo [persona]
+   (-> persona
+       (selecciona-campos-relevantes :estudiante)
+       (actualiza-fecha-registro :hoy)
+       transforma-nombre))
