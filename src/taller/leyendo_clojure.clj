@@ -336,3 +336,26 @@ nil              ;; Ausencia de valor, muy importante
 (saluda (str "bot-" 3))
 
 (saluda "bot-3")
+
+;; En un lenguaje "tradicional" el proceso de compilación es a grandes rasgos:
+;; Cadena -> Parser & Lexer -> AST (no disponible para el programa) -> Evaluator -> Bytecode o algo así
+
+;; En un lenguaje con un REPL es:
+;; Cadena -> Reader -> lista (que el programa puede usar) -> Eval -> valor -> Print -> Loop
+;; (Hay algo más por ahí, con respecto a los macros pero no es un tema básico)
+
+;; Esto no es buena idea (en general) pero:
+(+ 1 2)
+;; => 3
+
+(eval (list + 1 2))
+;; => 3
+
+(eval (list 'def 'tres (list + 1 2)))
+;; => #'taller.leyendo-clojure/tres
+
+tres
+;; => 3
+
+;; En otras palabras evaluando en el REPL tenemos un programa que
+;; mediante su evaluador se modifica a sí mismo
