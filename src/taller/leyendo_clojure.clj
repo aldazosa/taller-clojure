@@ -2,6 +2,10 @@
   (:require [clojure.repl :refer :all]))
 
 
+;; ¡CUIDADO! Este archivo incluye expresiones que lanzan excepciones,
+;; por lo que no se puede cargar por completo de forma sencilla.
+
+
 ;;;;;;;;;;;;;
 ;; El REPL ;;
 ;;;;;;;;;;;;;
