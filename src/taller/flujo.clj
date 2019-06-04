@@ -232,24 +232,4 @@
                    "plum"))
 (= :mayor (compara > 0 2))
 
-;; 2. Calcular la serie de fibonacci es uno de los ejemplos más claros de recursión.
-;; Sin embargo, al implementarla sin ciudado, ocupa demasiados recursos y
-;; no es posible calcular posiciones muy avanzadas:
-(defn fib-overflow [n]
-  (case n
-    1 1
-    2 1
-    (+ (fib-overflow (- n 1))
-       (fib-overflow (- n 2)))))
-
-;; (fib-overflow 1000) ya se tarda mucho o incluso marca un StackOverflow
-
-;; Complete la siguiente función para calcular el n-ésimo número de Fibonacci
-;; usando `recur` para usar recursión de cola y poder calcular números
-;; más grandes
-(defn fib [n]
-  (let [fib* (fn [i i+1 step]
-               ;; Aquí escriba su código
-               )]
-    ;; Recordemos que el sufijo N es para usar BigIntegers
-    (fib* 1N 1N 1N)))
+;; 2. Implementa la función factorial usando `recur`
