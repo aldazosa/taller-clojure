@@ -143,8 +143,13 @@
 ;;     {:x :c, :y 1}
 ;;     {:x :c, :y 2})
 
-; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
->>>>>>> Agrega correcciones a notas de flujo.
+;; `doseq` es una función parecida a `for`, pero esta desecha la evaluación
+;; de las expresiones (regresa `nil`) su intención es llevar a cabo efectos
+;; secundarios por cada elemento en una secuencia.
+(doseq [n (range 1 10)]
+  (println "El doble de" n "es" (* n 2))) ;; => nil
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Recursión (loop y recur) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
