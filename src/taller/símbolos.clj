@@ -1,24 +1,71 @@
 (ns taller.símbolos)
 
-;; # Vars
-;; ## Definición
-;; Nombre completo de vars incluye el espacio de nombre. Nombre calificado.
+;; ¡CUIDADO! Este archivo incluye expresiones que lanzan excepciones,
+;; por lo que no se puede cargar por completo de forma inmediata.
+
+;;;;;;;;;;
+;; Vars ;;
+;;;;;;;;;;
+
+;; # Definición
+;; Se utiliza `def`.
+;; (def símbolo doc-string? init?)
+(def v-simple)
+(clojure.repl/doc vars)
+
+(def v-completa "Un bonito doc-string" 0)
+(clojure.repl/doc vars)
+
+;; Nombre completo de Vars incluye el espacio de nombre. Nombre calificado.
+;; El valor asociado de un Vars puede ser de cualquier tipo, incluso funciones;
+;; * Cadena
 (def lenguaje "Clojure")
 
+;; * Colección
 (def carácterísticas ["funcional" "hosted"])
 
+;; * Numérico
 (def pi 3.141592653589793)
 
-(println lenguaje)
+;; * Función. def + función anónima =  defn
+(def área (fn [radio] (* pi radio radio)))
+área
+(área 3)
 
-;; ## Redefinición de vars.
+;; En clojure todas las expresiones regresan un valor. En el caso de `def`
+;; el valor que se está regresando es el objeto Var como tal.
+(type (def q 1))
+
+;; # Redefinición de vars.
 (def lenguaje "ClojureScript")
 
 (println lenguaje)
 
-;; # Ligado con let
-;; Se crea un contexto léxico en el que se pueden definir símbolos/variables
-;; inmutables cuyo alcance sólo es el del let.
+;; Los nombres de los Vars también puede ser símbolos propopios de clojure.
+(def + "Sumando")
+
+(+ 2 3) ;; Error
+(println +)
+
+;; Lo regresamos a su definición original
+(def + clojure.core/+)
+
+;; ¿Qué alcance tendría una definición dentro de un contexto local
+;; como una función o un let?
+(defn mi-fn []
+  (def a 111))
+
+;;;;;;;;;
+;; Let ;;
+;;;;;;;;;
+
+;; Ahora, ¿Cómo puedo definir una variable local?
+;; Uso let:
+;;(let [bindings*] exprs*), dónde:
+;; binding -> nombre valor
+;; El valor del let es el valor de la última expresión.
+
+
 (let [lenguaje "Java"]
   (println lenguaje))
 
@@ -37,30 +84,55 @@
   (* pi r2 h))
 
 ;; ## Ejercicio
-;; Calcula alguna las raíces del polinomio 2x^2 + 3x + 1 usando let y la
+;; Calcula las raíces del polinomio 2x^2 + 3x + 1 usando let y la
 ;; fórmula general para resolver ecuaciones de segundo grado
 ;; Salida -> "X1 = _ , X2 = _"
 
+;;;;;;;;;;;;;;;;;;;
+;; Destructuring ;;
+;;;;;;;;;;;;;;;;;;;
 
-;; # Destructuring
-;; A través de la sintaxis se puede acceder a las partes de una estructura
-;; Sin destructuring
-(let [v       [2 5 8 15]
-      primero (first v)
-      tercero (nth v 2)]
-    (+ primero tercero))
+;; La forma de las estructuras puede llegar a ser muy compleja y por lo general
+;; una función sólo interactúa con una sección de ella.
 
-;; Con destructuring
+;; Destructuring provee una manera de manipular sólo ciertas partes de una estructura.
+;; Estos son los tipos de destructuring que hay
+
+;; 1. Destructuring posicional (vectores y secuencias)
 (let [[primero _ tercero] [2 5 8 15]]
-    (+ primero tercero))
+  (+ primero tercero))
 
-;; Sin destructuring
+;; Nota: el `_` es un símbolo, pero usado en el contexto de destructuring tiene la
+;; convención de un elemento que ocupa un lugar, pero no interesa.
+
+
+;; ¿Que pasaría si el primer elemento fuera una secuencia y necesitara el segundo de esa secuencia?
+;; El destructuring permite anidamiento sin límite de niveles.
+(def mi-línea [[5 10] [10 20]])
+
+(let [[[x1 y1][x2 y2]] my-line]
+  (println "Línea de (" x1 "," y1 ") a (" x2 ", " y2 ")"))
+
+;; Además de acceder a posiciones particulares se puede acceder al resto y al todo
+(let [[a b c & resto] (range 10)]
+ (println "a b c son:" a b c)
+ (println "el resto es:" resto))
+
+(let [[a b c & resto :as todo] (range 10)]
+  (println "a b c son:" a b c)
+  (println "el resto es:" resto)
+  (println "Todo: " todo))
+
+;; 2. Destructuring asociativo (mapas)
 (def persona
     {:edad       33
      :nombre     "Joe"
      :apellido-p "Smith"
      :dirección  "Av. Remedios #34 ..."})
 
+;; Ejemplo: Obtén una cadena con el nombre completo de la persona:
+
+;; Sin destructuring
 (let [nombre     (:nombre persona)
       apellido-p (:apellido-p persona)
       apellido-m (:apellido-m persona)]
@@ -73,29 +145,14 @@
       nombre-completo          (str nombre " " apellido-p " " apellido-m)]
     nombre-completo)
 
-;; Otro sabor
+;; `:keys` provee otra manera de hacer el destructuring
 (let [{:keys [nombre
               apellido-p
               apellido-m]} persona
       nombre-completo      (str nombre " " apellido-p " " apellido-m)]
     nombre-completo)
 
-
-;; Otros ejemplos con destructuring
-(let [[a b c] (range 10)]
-  (println "a b c are:" a b c))
-
-(let [[a b c & more] (range 10)]
- (println "a b c are:" a b c)
- (println "more is:" more))
-
-(let [[a b c & more :as all] (range 10)]
-  (println "a b c are:" a b c)
-  (println "more is:" more)
-  (println "All" all))
-
-;; ## estructuras anidadas.
-;; ### Mapas
+;; También en este tipo de destructuring se permite el anidamiento
 (def multiplayer-game-state
   {:joe {:class "Ranger"
          :weapon "Longbow"
@@ -111,17 +168,6 @@
   (println "Joe is a" class "wielding a" weapon))
 
 
-;; ### Vectores
-;; Niveles arbitrarios de anidamiento
-(def my-line [[5 10] [10 20]])
-
-(let [[[x1 y1][x2 y2]] my-line]
-  (println "Line from (" x1 "," y1 ") to (" x2 ", " y2 ")")
-
-  (let [[[a b :as group1] [c d :as group2]] my-line]
-    (println a b group1)
-    (println c d group2)))
-
 ;; usando un default para valores que no están
 (let [{:keys [título
               nombre
@@ -131,22 +177,34 @@
       nombre-completo           (str título " " nombre " " apellido-p " " apellido-m)]
     nombre-completo)
 
-;; Destructuring vectores con mapas
+;; 3. Destructuring posicional con mapas
 (let [v           [2 5 8 15]
       {primero 0
        tercero 2} v]
     (+ primero tercero))
 
+;; ## Destructuring en funciones.
+;; Si la estructura con la que se tiene que trabajar es pasada como parámetro a una
+;; función, como lo hemos visto hasta ahora, tendríamos que crear un let dentro de la función
+;; para segmentarla y trabajar sólo con lo que necesitamos.
+;; Pero Clojure nos evita esa fatiga, se puede hacer destructuring desde la declaración de los
+;; parámetros de la función.
 
-;; Ejercicios
-;; Escribe en vector los días de la semana.
-;; imprime el tercero y el quinto.
+(defn nombre-completo [{:keys [nombre
+                               apellido-p
+                               apellido-m]}]
+  (str nombre " " apellido-p " " apellido-m))
 
-;; Aplica el destructuring adecuado y las operaciones necesarias para obtener
-;; una comparación entre las densidades de población de esos dos países representados por un mapa.
-;; El resultado debe ser una cadena
+(nombre-completo persona)
+
+;; ## Ejercicio
+;; Aplica el destructuring  y las operaciones necesarias para obtener
+;; una comparación entre las densidades de población de esos dos países
+;; representados por un mapa.
+;; El resultado debe ser una cadena:
 ;; "La densidad de población de X (km2) es mayor a la de Y (km2)."
-
+;; X y Y son los nombres correspondientes de los paises
+;; km2 es la densidad de población correspondiente a cada país.
 (def tailandia
   {:país       "Tailandia"
    :idioma     "Tailandes"
@@ -161,81 +219,135 @@
    :superficie 331210
    :capital    "Hanoi"})
 
-;; # Espacios de nombres
-;; Juntan vars y funciones relacionadas.
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Espacios de nombres ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ## Bibliotecas
+;; Un espacio de nombres junta símbolos y funciones relacionados.
+
+;; El primer espacio de nombres con el que se tiene contacto es `user`.
+;; Ya que por omisión es dónde arranca el REPL.
+
+;; La variable `*ns*` guarda el espacio de nombres actual.
+
+;; # El Core
 ;; La biblioteca estándar de clojure es `clojure.core`.
-;; Tiene funcionalidades muy básicas, pero hay muchas Bibliotecas que pueden ser
-;; agregadas a un proyecto .
+;; Lista de los símboles de ese espacio de nombres.
 (clojure.repl/dir clojure.core)
 
-;; ## Creando un espacio de nombres
-;;(ns mi.espacio)
-;; Esta forma de crear un espacio de nombres se utliza más en archivos e incluye
-;; `clojure.core` y funciones de java de `java.lang`
+;; # Creación
+;; Para crear un espacio de nombres se usa `ns`
+;; (ns mi.espacio)
+;; Generalmente la creación de espacios de nombres se hace en cada archivo
+;; en la parte superior.
+;; El espacio de nombres recién creado ya incluye `clojure.core` y funciones de java de `java.lang`.
 
-;; todo lo que se crea dentro de ese espacio de nombres queda asociado a él
-;; para poderse usar dentro de otros espacios de nombres se tiene que importar
-;; el espacio de nombres
-(println *ns*)
+;; Por requisitos de Java el nombre de los archivos y los espacios de nombres
+;; están relacionados, ejemplo:
+;; foo.bar/este-es-mi-nuevo-espacio debe declararse en el archivo foo/bar/este_es_mi_nuevo_espacio.clj
 
-;; ## Otra manera de crear espacios de nombres (REPL)
+;; También se pueden crear espacios de nombres con la función create-ns
+;; y esta se usa más comunmente en el REPL.
+
+;; # Navegación
+;; Para moverse de espacio de nombres se puede hacer con:
 ;; (in-ns 'espacio.de.nombres)
-;; En este caso no se agregan las funciones del core.
+;; Si el espacio de nombres no existe, se crea pero no se agregan las funciones del core.
 
-;; ## Cargar otros espacios de nombres
-;; ### require (https://clojuredocs.org/clojure.core/require)
-;; Función más usada.
+(in-ns 'taller.otro-ns)
+(def lenguaje "PHP")
+(println lenguaje) ;;error ya que no están las funciones del core.
+lenguaje
+
+(in-ns 'taller.símbolos)
+lenguaje
+
+
+;; Ahora, ¿cómo cargo otros espacios de nombres?
+
+;; # Cargar otros espacios de nombres (require, use, import)
+;; ## require (https://clojuredocs.org/clojure.core/require)
 ;; Carga los espacios de nombres que no están cargados
 ;; Modificadores:
 ;; - :as -> alias
 ;; - :refer -> toma una lista de símbolos o el keyword :all
-;; - :reload, reload-all, :verbose
-(require '[clojure.string])
+;; - :reload, :reload-all, :verbose
 
+;; carga clojure.string
+(clojure.string/replace "vueno vroma vien" "v" "b") ;; error, no está cargado.
+
+(require '[clojure.string])
 (clojure.string/replace "vueno vroma vien" "v" "b")
 
+;; carga clojure.string con el alias `st` e intengra la función blank? al espacio de nombres.
+;; Si se define una función con nombre `blank?` se producirá un error, ya que
+;; la función ya existe
 (require '[clojure.string :as st :refer [blank?]])
+
 (blank? " ")
 
-(clojure.string/replace "vueno vroma vien" "v" "b")
-(st/replace "vueno vroma vien" "v" "b")
+(defn blank? [s]
+  false) ;; error. blank? ya existe.
 
-;; ### use (https://clojuredocs.org/clojure.core/use)
+;; Se puede usar el alias o el nombre completo.
+(st/replace "vueno vroma vien" "v" "b")
+(clojure.string/replace "vueno vroma vien" "v" "b")
+
+;; En los espacios de nombres `taller.símbolos` y `taller.otro-ns` se define lenguaje
+;; pero no hay colisión por que cada uno está en su espacio de nombres.
+;; Si se necesitara en un mismo espacio de nombres poder acceder a ambas variables
+;; se recomienda cargar el espacio de nombres con un alias.
+
+
+
+;; ## use (https://clojuredocs.org/clojure.core/use)
 ;; Lo mismo que require pero :
 ;; - Tiene los modificadores :only y :exclude
 ;; - Sin modificadores, agrega todos los símbolos públicos del espacio de nombres.
-;;  require sólo carga el espacio de nombres
+;; Este comportamiento sobrecarga el espacio de nombres por lo que su uso es poco recomendado y require surgió
+;; como alternativa.
+;; https://grokbase.com/t/gg/clojure/137qrc7xmr/can-we-please-deprecate-the-use-directive#20130724kh5nybfrqhf2httfoefklqrghi
+
+(in-ns 'foo.bar)
+(clojure.core/use '[clojure.core])
 
 (use '[clojure.string :only [replace-first]])
 
 (replace-first "vueno vroma vien" "v" "b")
 
-;; ## Omisión de nombres
 (use '[clojure.set :exclude [intersection]])
 
-;; Recomendaciones:
-;; - No se usar `use` sin modificadores.
-;; - Conservar el nombre calificado (con o sin alias) de las funciones externas
-;; Esto para evitar colisiones de nombres.
+;; regresamos.
+(in-ns 'taller.símbolos)
 
 ;; Importartar funciones de java
 ;; Por omisión siempre se cargan las de java.lang
 (import java.util.Date)
-(def ahoritita (Date.))
-(str ahoritita)
+(def ahora (Date.))
+(str ahora)
 
-;; generalmente cada ns (a.b.c.....x.e) obedece a un archivo con el nombre e.clj ubicado en el path a.b.c...x
 
-;; En mi_espacio.clj se encuentran ejemplos de estas funciones directamente usadas al crear
-;; el espacio de nombres (forma tradicional).
+;; Normalmente cuando se crea el espacio de nombres con ns también se agregan
+;; otros espacios de nombres. https://clojuredocs.org/clojure.core/ns
+
+;; En mi_espacio.clj se encuentran ejemplos de estas funciones (use, require, import)
+;; directamente usadas al crear el espacio de nombres (forma convencional).
 
 ;; Ejercicio
 ;; Crea un nuevo archivo, utiliza ns y sus directivas (como en mi_espacio.clj)
 ;; para crear un espacio de nombres en el que :
-;; - Se excluya `defstruct` de `clojure.core`.
 ;; - Se pueda usar todo lo de `clojure.set` y `clojure.xml` sin calificación de nombre.
 ;; - Se puedan usar sólo las funciones `are` e `is` de `clojure.test` sin calificación de nombre.
 ;; - Se cargue el espacio de nombres `clojure.zip` con el alias `z`.
 ;; - Se importen las clase de Java `java.util.Date` y `java.io.File`
+
+;; Los keywords también pueden tener un espacio de nombres (keyword calificado).
+:espacio.nombre/nombre
+
+;; Si comienzan con doble dos puntos (::) y no está calificado, se resuelve el keyword sobre el espacio actual
+::nombre
+
+;; Si comienzan con doble dos puntos (::) y esta calificado, se resuelve el keyword sobre el espacio cuyo
+;; alias sea la cualificación
+(require '[taller.mi-espacio :as x])
+::x/doo
