@@ -17,7 +17,7 @@
 (clojure.repl/doc vars)
 
 ;; Nombre completo de Vars incluye el espacio de nombre. Nombre calificado.
-;; El valor asociado de un Vars puede ser de cualquier tipo, incluso funciones;
+;; El valor asociado de un Vars puede ser de cualquier tipo, incluso funciones:
 ;; * Cadena
 (def lenguaje "Clojure")
 
@@ -83,10 +83,12 @@
       h  10.2]
   (* pi r2 h))
 
-;; ## Ejercicio
-;; Calcula las raíces del polinomio 2x^2 + 3x + 1 usando let y la
-;; fórmula general para resolver ecuaciones de segundo grado
-;; Salida -> "X1 = _ , X2 = _"
+;; ## Ejercicios
+;; * Local bindings http://www.4clojure.com/problem/35
+;; * Let it Be http://www.4clojure.com/problem/36
+;; * Calcula las raíces del polinomio 2x^2 + 3x + 1 usando let y la
+;;   fórmula general para resolver ecuaciones de segundo grado
+;;   Salida -> "X1 = _ , X2 = _"
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Destructuring ;;
