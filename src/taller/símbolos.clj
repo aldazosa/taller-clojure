@@ -41,7 +41,7 @@
 
 (println lenguaje)
 
-;; Los nombres de los Vars también puede ser símbolos propopios de clojure.
+;; Los nombres de los Vars también puede ser símbolos propios de clojure.
 (def + "Sumando")
 
 (+ 2 3) ;; Error
@@ -320,7 +320,7 @@ lenguaje
 ;; regresamos.
 (in-ns 'taller.símbolos)
 
-;; Importartar funciones de java
+;; Importar funciones de java
 ;; Por omisión siempre se cargan las de java.lang
 (import java.util.Date)
 (def ahora (Date.))
