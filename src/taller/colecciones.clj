@@ -1,4 +1,6 @@
-(ns taller.colecciones)
+(ns taller.colecciones
+    (:require [clojure.set]))
+
 
 ;; Las colecciones son agrupaciones de valores de clojure (símbolos,
 ;; cadenas, funciones, números, keywords, otras colecciones, etc).
