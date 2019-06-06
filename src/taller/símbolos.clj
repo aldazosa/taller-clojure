@@ -11,30 +11,43 @@
 ;; Se utiliza `def`.
 ;; (def símbolo doc-string? init?)
 (def v-simple)
-(clojure.repl/doc vars)
+;; => #'taller.símbolos/v-simple
+
+(clojure.repl/doc v-simple)
 
 (def v-completa "Un bonito doc-string" 0)
-(clojure.repl/doc vars)
+;; => #'taller.símbolos/v-completa
+
+(clojure.repl/doc v-completa)
 
 ;; Nombre completo de Vars incluye el espacio de nombre. Nombre calificado.
 ;; El valor asociado de un Vars puede ser de cualquier tipo, incluso funciones:
 ;; * Cadena
 (def lenguaje "Clojure")
+;; => #'taller.símbolos/lenguaje
 
 ;; * Colección
 (def carácterísticas ["funcional" "hosted"])
+;; => #'taller.símbolos/carácterísticas
 
 ;; * Numérico
 (def pi 3.141592653589793)
+;; => #'taller.símbolos/pi
 
 ;; * Función. def + función anónima =  defn
 (def área (fn [radio] (* pi radio radio)))
+;; => #'taller.símbolos/área
+
 área
+;; => #object[taller.símbolos$área 0x7062a3a4 "taller.símbolos$área@7062a3a4"]
+
 (área 3)
+;; => 28.274333882308138
 
 ;; En clojure todas las expresiones regresan un valor. En el caso de `def`
 ;; el valor que se está regresando es el objeto Var como tal.
 (type (def q 1))
+;; => clojure.lang.Var
 
 ;; # Redefinición de vars.
 (def lenguaje "ClojureScript")
@@ -43,17 +56,23 @@
 
 ;; Los nombres de los Vars también puede ser símbolos propios de clojure.
 (def + "Sumando")
+;; => #'taller.símbolos/+
 
 (+ 2 3) ;; Error
 (println +)
 
 ;; Lo regresamos a su definición original
 (def + clojure.core/+)
+;; => #'taller.símbolos/+
 
 ;; ¿Qué alcance tendría una definición dentro de un contexto local
 ;; como una función o un let?
 (defn mi-fn []
   (def a 111))
+;; => #'taller.símbolos/mi-fn
+
+(mi-fn)
+;; => #'taller.símbolos/a
 
 ;;;;;;;;;
 ;; Let ;;
@@ -82,6 +101,7 @@
       r2 (* r r)
       h  10.2]
   (* pi r2 h))
+;; => 801.1061266653973
 
 ;; ## Ejercicios
 ;; * Local bindings http://www.4clojure.com/problem/35
@@ -112,7 +132,7 @@
 ;; El destructuring permite anidamiento sin límite de niveles.
 (def mi-línea [[5 10] [10 20]])
 
-(let [[[x1 y1][x2 y2]] my-line]
+(let [[[x1 y1][x2 y2]] mi-línea]
   (println "Línea de (" x1 "," y1 ") a (" x2 ", " y2 ")"))
 
 ;; Además de acceder a posiciones particulares se puede acceder al resto y al todo
@@ -139,6 +159,7 @@
       apellido-p (:apellido-p persona)
       apellido-m (:apellido-m persona)]
     (str nombre " " apellido-p " " apellido-m))
+;; => "Joe Smith "
 
 ;; Con Destructuring
 (let [{nombre     :nombre
@@ -146,6 +167,7 @@
        apellido-m :apellido-m} persona
       nombre-completo          (str nombre " " apellido-p " " apellido-m)]
     nombre-completo)
+;; => "Joe Smith "
 
 ;; `:keys` provee otra manera de hacer el destructuring
 (let [{:keys [nombre
@@ -153,6 +175,7 @@
               apellido-m]} persona
       nombre-completo      (str nombre " " apellido-p " " apellido-m)]
     nombre-completo)
+;; => "Joe Smith "
 
 ;; También en este tipo de destructuring se permite el anidamiento
 (def multiplayer-game-state
@@ -165,9 +188,11 @@
    :ryan {:class "Wizard"
           :weapon "Mystic Staff"
           :score 150}})
+;; => #'taller.símbolos/multiplayer-game-state
 
 (let [{{:keys [class weapon]} :joe} multiplayer-game-state]
-  (println "Joe is a" class "wielding a" weapon))
+  (str "Joe es un " class " empuñando un " weapon))
+;; => "Joe es un Ranger empuñando un Longbow"
 
 
 ;; usando un default para valores que no están
@@ -178,12 +203,14 @@
        :or   {título "Don"}} persona
       nombre-completo           (str título " " nombre " " apellido-p " " apellido-m)]
     nombre-completo)
+;; => "Don Joe Smith "
 
 ;; 3. Destructuring posicional con mapas
 (let [v           [2 5 8 15]
       {primero 0
        tercero 2} v]
     (+ primero tercero))
+;; => 10
 
 ;; ## Destructuring en funciones.
 ;; Si la estructura con la que se tiene que trabajar es pasada como parámetro a una
@@ -196,8 +223,10 @@
                                apellido-p
                                apellido-m]}]
   (str nombre " " apellido-p " " apellido-m))
+;; => #'taller.símbolos/nombre-completo
 
 (nombre-completo persona)
+;; => "Joe Smith "
 
 ;; ## Ejercicio
 ;; Aplica el destructuring  y las operaciones necesarias para obtener
@@ -287,13 +316,17 @@ lenguaje
 (require '[clojure.string :as st :refer [blank?]])
 
 (blank? " ")
+;; => true
 
 (defn blank? [s]
   false) ;; error. blank? ya existe.
 
 ;; Se puede usar el alias o el nombre completo.
 (st/replace "vueno vroma vien" "v" "b")
+;; => "bueno broma bien"
+
 (clojure.string/replace "vueno vroma vien" "v" "b")
+;; => "bueno broma bien"
 
 ;; En los espacios de nombres `taller.símbolos` y `taller.otro-ns` se define lenguaje
 ;; pero no hay colisión por que cada uno está en su espacio de nombres.
@@ -316,16 +349,20 @@ lenguaje
 (use '[clojure.string :only [replace-first]])
 
 (replace-first "vueno vroma vien" "v" "b")
+;; => "bueno vroma vien"
 
 (use '[clojure.set :exclude [intersection]])
 
 ;; regresamos.
 (in-ns 'taller.símbolos)
 
+;; ## import
 ;; Importar funciones de java
 ;; Por omisión siempre se cargan las de java.lang
 (import java.util.Date)
+
 (def ahora (Date.))
+
 (str ahora)
 
 
@@ -348,8 +385,11 @@ lenguaje
 
 ;; Si comienzan con doble dos puntos (::) y no está calificado, se resuelve el keyword sobre el espacio actual
 ::nombre
+;; => :taller.símbolos/nombre
 
 ;; Si comienzan con doble dos puntos (::) y esta calificado, se resuelve el keyword sobre el espacio cuyo
 ;; alias sea la cualificación
 (require '[taller.mi-espacio :as x])
+
 ::x/doo
+;; => :taller.mi-espacio/doo
