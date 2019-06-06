@@ -1,5 +1,5 @@
 (ns taller.leyendo-clojure
-  (:require [clojure.repl :refer :all]))
+  (:require [clojure.repl :refer [doc find-doc apropos source pst]]))
 
 
 ;; ¡CUIDADO! Este archivo incluye expresiones que lanzan excepciones,

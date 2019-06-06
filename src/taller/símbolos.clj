@@ -1,4 +1,5 @@
-(ns taller.símbolos)
+(ns taller.símbolos
+  (:require [clojure.repl :refer [doc]]))
 
 ;; ¡CUIDADO! Este archivo incluye expresiones que lanzan excepciones,
 ;; por lo que no se puede cargar por completo de forma inmediata.
@@ -13,12 +14,12 @@
 (def v-simple)
 ;; => #'taller.símbolos/v-simple
 
-(clojure.repl/doc v-simple)
+(doc v-simple)
 
 (def v-completa "Un bonito doc-string" 0)
 ;; => #'taller.símbolos/v-completa
 
-(clojure.repl/doc v-completa)
+(doc v-completa)
 
 ;; Nombre completo de Vars incluye el espacio de nombre. Nombre calificado.
 ;; El valor asociado de un Vars puede ser de cualquier tipo, incluso funciones:
