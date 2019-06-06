@@ -7,7 +7,7 @@
 ;; -> ;;
 ;;;;;;;;
 
-;; `->` o first thread macro ayuda a agrupar varias llamadas de funciones
+;; `->` o thread-first macro ayuda a agrupar varias llamadas de funciones
 ;; pasando el resultado de la anterior como el primer parámetro de la siguiente
 
 ;; Esta expresión:
@@ -42,7 +42,7 @@
 ;; ->> ;;
 ;;;;;;;;;
 
-;; `->>` o last thread macro es parecido a `->` en que ayuda a reescribir
+;; `->>` o thread-last macro es parecido a `->` en que ayuda a reescribir
 ;; expresiones anidadas en un flujo más legible. La diferencia radica en
 ;; que el resultado de la expresión anterior es pasado como el último
 ;; parámetro de la siguiente.
