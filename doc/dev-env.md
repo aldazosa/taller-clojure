@@ -12,6 +12,24 @@ Las instrucciones a que se dan a continuación son para Linux.
         # mv lein /usr/local/bin/lein
         # chmod a+x /usr/local/bin/lein
         $ lein
+* Joker:
+  1. Instalar curl y build-essential:
+
+            # apt install curl build-essential
+
+  2. Instalar [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) (gestor de paquetes)
+
+
+            $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+            $ test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+            $ test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            $ test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+            $ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+
+  3. Instalar [Joker](https://github.com/candid82/joker) (interprete y analizador de Clojure)
+
+            $ brew install candid82/brew/joker
+
 
 ## Instalar Atom y paquetes
 * Descarga el paquete que se acomode mejor a tu distribución [del sitio de atom](https://atom.io/)
@@ -31,8 +49,7 @@ Las instrucciones a que se dan a continuación son para Linux.
         $ atom .
 
 ## Configuración de atom
-¿Pretty Print?
-* Agregar el path de lein. `Edit > Preferences (Ctrl+,) > Packages > proto-repl (Settings)` Si lo pusieron en su path, esto no debe ser necesario
+* Pretty Printing: `Edit > Preferences (ctrl+,) > Packages > proto-repl (Settings) > Auto pretty printing`
 
 ## Test de configuración
 * Crear un proyecto de prueba con la plantilla **app**
@@ -53,7 +70,15 @@ Las instrucciones a que se dan a continuación son para Linux.
 en el REPL, luego `Shift + Enter`. Debe aparecer el número `2`.
 
 ## Shorcuts útiles
-* Evaluar bloque _in-line_: `ctrl, + b`
-* compilar archivo de nuevo `ctrl, + f`
-* Documentación de función `ctrl, + d`
-* Más `Edit > Preferences > Keybindings`
+
+* Compilar archivo `ctrl+, f`
+* Ir a la definición de una función `ctrl+, o`
+* Refrescar espacios de nombres `ctrl+, r`
+* Evaluar bloque `ctrl+, b`
+* Cambiar de búffer `ctrl+k ctrl+left/right`
+* Clear REPL `ctrl+, k`
+* Documentación de la función sobre la que está el cursor `ctrl+, d`
+* Comentar línea  `ctrl+/`
+
+
+Si quieres conocer más, Atom tiene un buscador de shortcuts que se puede consultar con `ctrl+shift+p`.
