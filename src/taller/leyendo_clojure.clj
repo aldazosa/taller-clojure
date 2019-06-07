@@ -1,5 +1,5 @@
 (ns taller.leyendo-clojure
-  (:require [clojure.repl :refer :all]))
+  (:require [clojure.repl :refer [doc find-doc apropos source pst]]))
 
 
 ;; ¡CUIDADO! Este archivo incluye expresiones que lanzan excepciones,
@@ -301,7 +301,7 @@ nil              ;; Ausencia de valor, muy importante
 (keyword? "foo")
 ;; => false
 
-;; Para crear una nueva función usamos `defn`)
+;; Para crear una nueva función usamos `defn`
 
 (defn                     ;; esto es una nueva función
   hola-mundo              ;; que se llama "hola-mundo"

@@ -50,6 +50,7 @@ Las instrucciones a que se dan a continuación son para Linux.
 
 ## Configuración de atom
 * Pretty Printing: `Edit > Preferences (ctrl+,) > Packages > proto-repl (Settings) > Auto pretty printing`
+* Agregar path de joker: `Edit > Preferences > Packages > linter-joker > joker path`. Para saber dónde está instalado joker en una terminal `which joker`.
 
 ## Test de configuración
 * Crear un proyecto de prueba con la plantilla **app**

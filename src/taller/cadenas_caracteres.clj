@@ -10,7 +10,7 @@
 ;; Si queremos comillas dobles dentro de la cadena, hay que escaparlas
 "El nombre del libro es \"Effective Java\"."
 
-(def title "Effective Java")
+(def título "Effective Java")
 
 ;; Son cadenas de java
 
@@ -160,7 +160,7 @@
 ;; Escribe una función que tome una cadena y regrese una nueva cadena
 ;; que contenga solamente las mayúsculas
 ;;
-;; (mayúsuculas-en "Una CadeNA con altAs y BAJAS") => "UCNAABAJAS"
+;; (mayúsculas-en "Una CadeNA con altAs y BAJAS") => "UCNAABAJAS"
 ;; http://www.4clojure.com/problem/29
 
 

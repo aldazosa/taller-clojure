@@ -1,4 +1,5 @@
-(ns taller.funciones)
+(ns taller.funciones
+  (:require [clojure.repl :refer [doc]]))
 
 ;; Para crear una función se utiliza la forma special `fn`
 
