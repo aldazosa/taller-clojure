@@ -1,4 +1,7 @@
-(ns taller.booleanos)
+(ns taller.booleanos
+  (:require [clojure.walk :refer [macroexpand-all]]))
+
+
 
 ;; Booleanos
 true
@@ -50,7 +53,23 @@ false
 (if false :truthy :falsey)
 ;; => :falsey
 
-;; En clojure and, or y when se construyen a partir del if.
+;; En clojure los macros and, or y when se construyen a partir del if.
+;; Es decir, en su expansión se producen `ìfs`
+;; Ejemplo:
+(macroexpand-all '(and 1 nil 3))
+;; (let*
+;;  [and__5514__auto__ 1]
+;;  (if
+;;   and__5514__auto__
+;;   (let*
+;;    [and__5514__auto__ nil]
+;;    (if and__5514__auto__
+;;     3
+;;     and__5514__auto__
+;;   and__5514__auto__))
+
+
+
 ;; and: evalúa todas las expresiones de izquierda a derecha.
 ;;      Si hay valores lógicamente falsos, regresa el primero y si todos son
 ;;      lógicamente verdaderos, regresa el último.

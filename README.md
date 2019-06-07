@@ -104,7 +104,7 @@ Explicación y ejemplos de cada uno de los elementos básicos de clojure.
 - thread-last
 
 ## 12. Java interop ##
-[Notas](interop.clj)
+[Notas](src/taller/interop.clj)
 
 - Constructores
 - Métodos
