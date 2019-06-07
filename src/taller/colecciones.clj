@@ -131,6 +131,13 @@ v ;; => [:a :b :c :d]
 ;; Para explorar más funciones en la librería de secuencias, ir a
 ;; https://clojure.org/reference/sequences#_the_seq_library
 
+;; Ejercicio 1.
+;; Crea una colección con todos los elementos de `c1`, `c2` y `c3`
+;; ordenados de mayor a menor
+(def c1 '(78 4 2 98 6))
+(def c2 [7 45 1 0 -8])
+(def c3 [7 1 3 45 8 9])
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tipos de colecciones ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -214,6 +221,13 @@ v ;; => [:a :b :c :d]
 (subvec [:a :b :c :d :e] 2 4) ;; => [:c :d]
 ;; Si no se da fin, se regresa hasta el final
 (subvec [:a :b :c :d :e] 2) ;; => [:c :d :e]
+
+;; Ejercicio 2.
+;; A partir del vector `mensaje` y usando `nth` y `assoc`,
+;; construye otro vector con los animales ordenados del más
+;; pequeño al más grande
+
+(def mensaje ["elefante" "ratón" "caballo" "ballena" "gato"])
 
 ;;;;;;;;;;;;;;;
 ;; Conjuntos ;;
@@ -404,6 +418,30 @@ v ;; => [:a :b :c :d]
 (assoc-in {:foo 2} [:bar :baz :a] 1)
 ;; => {:foo 2 :bar {:baz {:a 1}}}
 
+;; Ejercicio 3.
+;; Usando el mapa `puntuaciones` y las funciones
+;; `assoc-in`, `update-in` y `get-in`:
+(def puntuaciones
+  {:juego-1 {:jugador-1 1
+             :jugador-2 2
+             :jugador-3 0}
+   :juego-2 {:jugador-1 0
+             :jugador-2 1
+             :jugador-3 3}
+   :juego-3 {:jugador-1 1
+             :jugador-2 1
+             :jugador-3 2}})
+
+;; 4.1 Agrega un `:jugador-4` en todos los juegos con cualquier puntuación
+;; 4.2 Duplica la puntuación de `:jugador-2` en el `:juego-1`
+;; 4.3 Crea un mapa con las llaves siendo los juegos y los valores
+;; la suma de las puntuaciones de todos los jugadores
+
+;; Ejercicio 4.
+;; ¿Qué tipo de colección usarías para implementar una colección FIFO?
+;; (el primer elemento insertado es el primer elemento extraído)
+;; ¿Qué funciones usas para insertar y extraer elementos de la colección?
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Secuencias perezosas ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -493,41 +531,3 @@ v ;; => [:a :b :c :d]
 ;; Regresa una secuencia con (v, f(v), f(f(v)), ...)
 (take 8 (iterate (fn [v] (* v 3)) 1))
 ;; => (1 3 9 27 81 243 729 2187)
-
-;;;;;;;;;;;;;;;;
-;; Ejercicios ;;
-;;;;;;;;;;;;;;;;
-
-;; 1. A partir del vector `mensaje` y usando `nth` y `assoc`,
-;; construye otro vector con los animales ordenados del más
-;; pequeño al más grande
-
-(def mensaje ["elefante" "ratón" "caballo" "ballena" "gato"])
-
-;; 2. ¿Qué tipo de colección usarías para implementar una colección FIFO?
-;; (el primer elemento insertado es el primer elemento extraído)
-;; ¿Qué funciones usas para insertar y extraer elementos de la colección?
-
-;; 3. Crea una colección con todos los elementos de `c1`, `c2` y `c3`
-;; ordenados de mayor a menor
-(def c1 '(78 4 2 98 6))
-(def c2 [7 45 1 0 -8])
-(def c3 [7 1 3 45 8 9])
-
-;; 4. Usando el mapa `puntuaciones` y las funciones
-;; `assoc-in`, `update-in` y `get-in`:
-(def puntuaciones
-  {:juego-1 {:jugador-1 1
-             :jugador-2 2
-             :jugador-3 0}
-   :juego-2 {:jugador-1 0
-             :jugador-2 1
-             :jugador-3 3}
-   :juego-3 {:jugador-1 1
-             :jugador-2 1
-             :jugador-3 2}})
-
-;; 4.1 Agrega un `:jugador-4` en todos los juegos con cualquier puntuación
-;; 4.2 Duplica la puntuación de `:jugador-2` en el `:juego-1`
-;; 4.3 Crea un mapa con las llaves siendo los juegos y los valores
-;; la suma de las puntuaciones de todos los jugadores
