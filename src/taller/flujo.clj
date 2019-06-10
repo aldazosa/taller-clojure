@@ -174,21 +174,21 @@
   (println "El doble de" n "es" (* n 2))) ;; => nil
 
 ;; Ejercicio 2.  http://www.4clojure.com/problem/59
-;; Completa la función `juxt` que reciba un número variable de funciones `fns`
-;; y regrese otra función que reciba un número variable de valores `xs` y
-;; aplique cada una de las `fns` a las `xs`, y regrese los resultados
-;; en cada función en un vector
+;; Completa la función `aplica-fns` que reciba un número variable de
+;; funciones `fns` y regrese otra función que reciba un número variable
+;; de valores `xs` y aplique cada una de las `fns` a las `xs`, y regrese
+;; los resultados en cada función en un vector
 
-(defn juxt
+(defn aplica-fns
   [& fns]
   (fn [& xs]
     ;; escribe tu código aquí
     ))
 
 ;; Todas estas expresiones deben evaluarse a verdad
-(= [21 6 1] ((juxt + max min) 2 3 5 1 6 4))
-(= ["HELLO" 5] ((juxt #(.toUpperCase %) count) "hello"))
-(= [2 6 4] ((juxt :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))
+(= [21 6 1] ((aplica-fns + max min) 2 3 5 1 6 4))
+(= ["HELLO" 5] ((aplica-fns #(.toUpperCase %) count) "hello"))
+(= [2 6 4] ((aplica-fns :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Recursión (loop y recur) ;;
