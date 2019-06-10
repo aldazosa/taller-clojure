@@ -53,6 +53,21 @@
 ;;     {:posición 1, :elemento :bar}
 ;;     {:posición 2, :elemento :baz})
 
+;; Ejercicio 1.
+;; Implementa una función que reciba una secuencia y duplique cada
+;; elemento en ella
+;; http://www.4clojure.com/problem/33
+
+(defn duplica [sec]
+  ;; escribe tu código aquí
+  )
+
+;; Todas las siguientes propiedades deben de ser verdaderas
+(= (duplica [1 2 3]) '(1 1 2 2 3 3))
+(= (duplica [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
+(= (duplica [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+(= (duplica [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+
 ;;;;;;;;;;;;
 ;; reduce ;;
 ;;;;;;;;;;;;
@@ -80,6 +95,23 @@
 ;; Primero se ejecuta (conj #{} 7)
 ;; después (conj #{7} 8)
 ;; despues (conj #{7 8} 8), etc..
+
+;; Ejercicio 2.
+;; Implementa una función que reciba una colección y cree un mapa
+;; cuyas llaves sean los elementos de la colección y los valores su
+;; frencuencia dentro de la colección (cuántas veces aparecen)
+;; Hint: Considera que llamar `inc` con `nil` causuará una excepción.
+
+(defn frecuencias
+  [coll]
+  ;; escribe tu código aquí
+  )
+
+;; Todas las siguientes propiedades deben de ser verdaderas
+(= (frecuencias [:foo :bar :foo :foo :baz])
+   {:foo 3 :bar 1 :baz 1})
+(= (frecuencias "ABRACADABRA")
+   {\A 5, \B 2, \R 2, \C 1, \D 1})
 
 ;;;;;;;;;;;;;;;
 ;; partition ;;
@@ -120,37 +152,3 @@
 
 (partition 3 3 [:foo] (range 13))
 ;; => ((0 1 2) (3 4 5) (6 7 8) (9 10 11) (12 :foo))
-
-;;;;;;;;;;;;;;;;
-;; Ejercicios ;;
-;;;;;;;;;;;;;;;;
-
-;; 1. Implementa una función que reciba una colección y cree un mapa
-;; cuyas llaves sean los elementos de la colección y los valores su
-;; frencuencia dentro de la colección (cuántas veces aparecen)
-;; Hint: Considera que llamar `inc` con `nil` causuará una excepción.
-
-(defn frecuencias
-  [coll]
-  ;; escribe tu código aquí
-  )
-
-;; Todas las siguientes propiedades deben de ser verdaderas
-(= (frecuencias [:foo :bar :foo :foo :baz])
-   {:foo 3 :bar 1 :baz 1})
-(= (frecuencias "ABRACADABRA")
-   {\A 5, \B 2, \R 2, \C 1, \D 1})
-
-;; 2. Implementa una función que reciba una secuencia y duplique cada
-;; elemento en ella
-;; http://www.4clojure.com/problem/33
-
-(defn duplica [sec]
-  ;; escribe tu código aquí
-  )
-
-;; Todas las siguientes propiedades deben de ser verdaderas
-(= (duplica [1 2 3]) '(1 1 2 2 3 3))
-(= (duplica [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
-(= (duplica [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
-(= (duplica [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))

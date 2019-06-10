@@ -74,6 +74,30 @@
     :else    "x es mayor o igual a 10"))
 ;; => "x es mayor o igual a 10"
 
+;; Ejercicio 1.
+;; Para todo dato ordenable, es posible derivar todas las operaciones
+;;  básicas (<, <=, ==, >=, >) con solo la operación para menor que.
+
+;; La función `compara` recibe tres argumentos: `menor-que` una función
+;; que define la operación `<` para cierto órden de algún tipo de datos
+;; y dos valores a comparar: A y B
+
+;; Acompleta la función para que:
+;; - Si A < B, regrese la llave `:menor`
+;; - Si A > B, regrese `:mayor`
+;; - Si A = B, regrese `:igual`
+
+(defn compara
+  [menor-que A B]
+  ;; escribe tu código aquí
+  )
+
+;; Todas estas expresiones deberían de evaluarse a verdad
+(= :mayor (compara < 5 1))
+(= :igual (compara (fn [x y] (< (count x) (count y)))
+                   "pear"
+                   "plum"))
+(= :mayor (compara > 0 2))
 
 ;;;;;;;;;;
 ;; case ;;
@@ -149,6 +173,23 @@
 (doseq [n (range 1 10)]
   (println "El doble de" n "es" (* n 2))) ;; => nil
 
+;; Ejercicio 2.  http://www.4clojure.com/problem/59
+;; Completa la función `aplica-fns` que reciba un número variable de
+;; funciones `fns` y regrese otra función que reciba un número variable
+;; de valores `xs` y aplique cada una de las `fns` a las `xs`, y regrese
+;; los resultados en cada función en un vector
+
+(defn aplica-fns
+  [& fns]
+  (fn [& xs]
+    ;; escribe tu código aquí
+    ))
+
+;; Todas estas expresiones deben evaluarse a verdad
+(= [21 6 1] ((aplica-fns + max min) 2 3 5 1 6 4))
+(= ["HELLO" 5] ((aplica-fns #(.toUpperCase %) count) "hello"))
+(= [2 6 4] ((aplica-fns :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Recursión (loop y recur) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -203,33 +244,5 @@
 ;; ser usadas para el caso que se esté trabajando, por ejemplo cuando
 ;; se necesite optimizar la recursión con recursión de cola
 
-
-;;;;;;;;;;;;;;;;
-;; Ejercicios ;;
-;;;;;;;;;;;;;;;;
-
-;; 1. Para todo dato ordenable, es posible derivar todas las operaciones
-;;  básicas (<, <=, ==, >=, >) con solo la operación para menor que.
-
-;; La función `compara` recibe tres argumentos: `menor-que` una función
-;; que define la operación `<` para cierto órden de algún tipo de datos
-;; y dos valores a comparar: A y B
-
-;; Acompleta la función para que:
-;; - Si A < B, regrese la llave `:menor`
-;; - Si A > B, regrese `:mayor`
-;; - Si A = B, regrese `:igual`
-
-(defn compara
-  [menor-que A B]
-  ;; escribe tu código aquí
-  )
-
-;; Todas estas expresiones deberían de evaluarse a verdad
-(= :mayor (compara < 5 1))
-(= :igual (compara (fn [x y] (< (count x) (count y)))
-                   "pear"
-                   "plum"))
-(= :mayor (compara > 0 2))
-
-;; 2. Implementa la función factorial usando `recur`
+;; Ejercicio 3.
+;; Implementa la función factorial usando `recur`

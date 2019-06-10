@@ -38,6 +38,23 @@
     (clojure.string/replace #"[_]" "-"))
 ;; => "foo-2"
 
+;; Ejercicio 1.
+(def juego
+  {:ronda-1 {:jugador-1 1
+             :jugador-2 1}
+   :ronda-2 {:jugador-1 2
+             :jugador-2 1}})
+
+;; Reescribe la siguiente expresión usando `->`
+(update-in (assoc-in (assoc-in (assoc-in juego
+                                         [:ronda-1 :jugador-3] 3)
+                               [:ronda-2 :jugador-3] 0)
+                     [:ronda-3 :jugador-1] 1)
+           [:ronda-1 :jugador-2] inc)
+;; => {:ronda-1 {:jugador-1 1, :jugador-2 2, :jugador-3 3},
+;;     :ronda-2 {:jugador-1 2, :jugador-2 1, :jugador-3 0},
+;;     :ronda-3 {:jugador-1 1}}
+
 ;;;;;;;;;
 ;; ->> ;;
 ;;;;;;;;;
@@ -65,28 +82,8 @@
 ;;   condición. La expresión se evalúa solo si la expresión es verdad
 ;; Para ver más de estas expresiones visite https://clojure.org/guides/threading_macros
 
-;;;;;;;;;;;;;;;;
-;; Ejercicios ;;
-;;;;;;;;;;;;;;;;
-
-;; 1.
-(def juego
-  {:ronda-1 {:jugador-1 1
-             :jugador-2 1}
-   :ronda-2 {:jugador-1 2
-             :jugador-2 1}})
-
-;; Reescribe la siguiente expresión usando `->`
-(update-in (assoc-in (assoc-in (assoc-in juego
-                                         [:ronda-1 :jugador-3] 3)
-                               [:ronda-2 :jugador-3] 0)
-                     [:ronda-3 :jugador-1] 1)
-           [:ronda-1 :jugador-2] inc)
-;; => {:ronda-1 {:jugador-1 1, :jugador-2 2, :jugador-3 3},
-;;     :ronda-2 {:jugador-1 2, :jugador-2 1, :jugador-3 0},
-;;     :ronda-3 {:jugador-1 1}}
-
-;; 2. Reescribe la siguiente expresión usando `->>`
+;; Ejercicio 2.
+;; Reescribe la siguiente expresión usando `->>`
 
 (reduce + (map inc (take 3 (drop 2 [2 5 4 1 3 6]))))
 ;; => 11
