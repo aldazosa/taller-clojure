@@ -135,7 +135,7 @@ v ;; => [:a :b :c :d]
 ;; Para poder "desenvolver" los valores para usar la función,
 ;; usamos `apply`
 
-(apply str [\t \a \c \o \c \a \t]) ;; => "tacocat"
+(apply + [1 2 3 4 5 6 7 8 9 10]) ;; => 55
 
 ;; Para explorar más funciones en la librería de secuencias, ir a
 ;; https://clojure.org/reference/sequences#_the_seq_library
