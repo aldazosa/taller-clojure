@@ -411,3 +411,7 @@ tres
        (selecciona-campos-relevantes :estudiante)
        (actualiza-fecha-registro :hoy)
        transforma-nombre))
+
+
+;; Listado de funciones útiles en la 'biblioteca estándar':
+;; https://jafingerhut.github.io/cheatsheet/grimoire/cheatsheet-tiptip-cdocs-summary.html
