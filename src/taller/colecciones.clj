@@ -128,6 +128,15 @@ v ;; => [:a :b :c :d]
 ;; colección. Sirve para cambiar de un tipo concreto de colección a otro
 (into [] '(4 5 8 6)) ;; => [4 5 8 6]
 
+;; A veces necesitamos aplicar una función que recibe varios
+;; argumentos (como `str`) pero los valores que queremos evaluar
+;; están dentro de una secuencia
+
+;; Para poder "desenvolver" los valores para usar la función,
+;; usamos `apply`
+
+(apply str [\t \a \c \o \c \a \t]) ;; => "tacocat"
+
 ;; Para explorar más funciones en la librería de secuencias, ir a
 ;; https://clojure.org/reference/sequences#_the_seq_library
 
