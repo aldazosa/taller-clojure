@@ -229,14 +229,14 @@
 (nombre-completo persona)
 ;; => "Joe Smith "
 
-;; ## Ejercicio
-;; Aplica el destructuring  y las operaciones necesarias para obtener
-;; una comparación entre las densidades de población de esos dos países
-;; representados por un mapa.
-;; El resultado debe ser una cadena:
-;; "La densidad de población de X (km2) es mayor a la de Y (km2)."
-;; X y Y son los nombres correspondientes de los paises
-;; km2 es la densidad de población correspondiente a cada país.
+;; ## Ejercicios
+;; 1. Aplica el destructuring  y las operaciones necesarias para obtener
+;;    una comparación entre las densidades de población de esos dos países
+;;    representados por un mapa.
+;;    El resultado debe ser una cadena:
+;;    "La densidad de población de X (km2) es mayor a la de Y (km2)."
+;;    X y Y son los nombres correspondientes de los paises
+;;    km2 es la densidad de población correspondiente a cada país.
 (def tailandia
   {:país       "Tailandia"
    :idioma     "Tailandes"
@@ -250,6 +250,11 @@
    :habitantes 91519289
    :superficie 331210
    :capital    "Hanoi"})
+
+;; 2. Sustituye el _ por la expresión que hace verdadera la igualdad.
+;; http://www.4clojure.com/problem/51
+(= [1 2 [3 4 5] [1 2 3 4 5]]
+   (let [[a b & c :as d] _] [a b c d]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Espacios de nombres ;;
