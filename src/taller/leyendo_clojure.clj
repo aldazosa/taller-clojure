@@ -89,6 +89,9 @@
 (/ 1 0)
 (pst)
 
+;; ClojureScript está fuera del alcance del taller pero aquí su acordeón:
+;; https://cljs.info/cheatsheet/
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Expresiones ;;
