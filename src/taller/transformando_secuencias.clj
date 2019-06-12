@@ -81,8 +81,8 @@
 (reduce + [4 5 6 4 8 4 2 1 3]) ;; => 37
 
 ;; Calcula el máximo de una secuencia
-(reduce (fn [a b]
-          (if (< a b) b a))
+(reduce (fn [máximo next]
+          (if (< máximo next) next máximo))
         [4 7 2 1 3 4 8 45 4 6]) ;; => 45
 
 ;; También es posible proporcionarle un argumento extra a `reduce` para
